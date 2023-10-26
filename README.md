@@ -2,7 +2,7 @@
 ## My first attempt with neural networks via Numpy to define QAOA quantum circuits.
 
 The goal of this codebase is to test how neural networks predict QAOA quantum circuits. 
-Outline of steps:
+Outline of steps:  
 *I generated QAOA instances using the generate_ising.py functions.  
 *Generated QAOA circuits for these instances and pre-optimise the QAOA parameters.  
 *The raw datasets of generated QAOA data are saved in json format. 
