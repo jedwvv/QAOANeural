@@ -105,7 +105,6 @@ def normalise_array_axis1(array, use_provided = False, arraymins = None, arrayra
     if not use_provided:
         arraymins, arraymaxs = np.min(array, axis=1), np.max(array, axis=1)
         arrayrange = arraymaxs - arraymins
-        print(arraymaxs, arraymins)
     no_samples = array.shape[1]
     arraymins_stacked = np.broadcast_to(arraymins, (no_samples,)+arraymins.shape).T
     arrayrange_stacked = np.broadcast_to(arrayrange, (no_samples,)+arrayrange.shape).T
