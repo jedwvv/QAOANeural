@@ -59,19 +59,13 @@ def main():
         if _opt_result.fun < best_network_err:
             best_network_err = _opt_result.fun
             opt_result = _opt_result
-            opt_hist = copy(_opt_hist)
-    fun_hists = []
-    x_hists = []
-    for x_hist, fun_hist in opt_hist:
-        fun_hists += [ float(fun_hist) ]
-        x_hists += [ [float(x) for x in list(x_hist)] ]
-    opt_weights = [ float(x) for x in list(opt_result.x) ]
+            opt_hist = copy(_opt_hist)   
     n_iters = int(opt_result.nit)
     opt_loss = float(opt_result.fun)
     training_data = [
         opt_weights,
         opt_loss,
-        x_hists,
+        opt_hists,
         fun_hists,
         n_iters
         ]
@@ -163,12 +157,16 @@ def forward_pass(network, x, return_intermediate = False):
     else:
         return new_inputs
 
-def cost(network, x, y):
+def cost(network, x, y, regularisation=0.0):
     m = x.shape[1]
+    #Regularise each weight matrix except bias weights
+    reg_cost = 0
+    for wt in network:
+        reg_cost += np.sum( regularisation * wt[:,1:] * wt[:,1:] ) 
     delta = y - forward_pass(network, x)
-    return np.sum( delta * delta ) / (2 * m)
+    return ( np.sum( delta * delta ) + reg_cost ) / (2*m)
 
-def approx_costgrad(network, x, y, idx):
+def approx_costgrad(network, x, y, idx, regularisation=0.0):
     eps = 1e-4
     weights = flatten_weights(network)
     weights_plus = weights.copy()
@@ -179,7 +177,7 @@ def approx_costgrad(network, x, y, idx):
         nodes_per_layer += [ weight_mat.shape[0] ]
     network_plus = reshape_weights(weights_plus,nodes_per_layer)
     network = reshape_weights(weights,nodes_per_layer)
-    return ( cost(network_plus, x, y) - cost(network, x, y) ) / ( 2 * eps )
+    return ( cost(network_plus, x, y, regularisation=0.0) - cost(network, x, y, regularisation=0.0) ) / ( 2 * eps )
 
 #Check for 10 random inputs and outputs up to 10 times (total 5 checks), that gradients are close:
 def check_backpropagate(network, no_features, no_outputs, regularisation=0.0, no_samples=10, no_trials=5, rng_seed=None):
@@ -196,7 +194,7 @@ def check_backpropagate(network, no_features, no_outputs, regularisation=0.0, no
         
         #Note approx_gradient is not regularised
         for i in range(len(gradient)):
-            approx_gradient[i] = approx_costgrad(network, x, y, idx=i) 
+            approx_gradient[i] = approx_costgrad(network, x, y, idx=i, regularisation=regularisation) 
         
         #To regularise approx_gradient
         approx_grad_arrs = reshape_weights(approx_gradient, nodes_per_layer)
@@ -211,10 +209,9 @@ def train_network(network, nodes_per_layer, x_inputs, y_outputs, regularisation=
     x0 = flatten_weights(network)
     global opt_hist
     opt_hist = []
-    def callback(intermediate_result):
+    def callback(xk):
         global opt_hist
-        res = intermediate_result
-        opt_hist += [ (res.x, res.fun)  ]
+        opt_hist += [ list(xk) ]
     def cost_fun(weights, nodes_per_layer, inputs, outputs):
         network = reshape_weights(weights, nodes_per_layer)
         return cost(network, x=inputs, y=outputs)
