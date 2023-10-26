@@ -1,5 +1,5 @@
 # QAOANeural
-## My first attempt with neural networks via Numpy to define QAOA quantum circuits.
+## My first attempt with neural networks via Numpy to predict QAOA quantum circuits.
 
 The goal of this codebase is to test how neural networks predict parameters for QAOA quantum circuits. 
 Outline of steps:  
