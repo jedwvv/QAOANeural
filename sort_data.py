@@ -5,7 +5,6 @@ import numpy as np
 #     E.g. interquartile range is the percentile [25, 75]. I use [5,95] to include 90% of recorded values.
 #     This is because far outliers could hurt performance of neural network training.
 #     And outliers are common given the unpredictable nature of the QAOA optimisation.
-#     I do this for both the training set and the validation set.
 
 def main():
     #Pre-defined fixed parameters.
