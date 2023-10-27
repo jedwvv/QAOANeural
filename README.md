@@ -11,5 +11,5 @@ Outline of steps taken:
   
 ### Other things to note: 
 - I use HPC to complete independent batch training of multiple network configurations.  
-- This was done by calling `python train_neural_network.py $args` on bash/sbatch scripts, where $args define the many different network configurations.  
+- This was done by calling `python train_neural_network.py $args` on bash/sbatch scripts, where `$args` define the many different network configurations.  
 - Same thing for generating QAOA instances to find the optimal output angles in batches for the many samples in the training and validation datasets. 
