@@ -61,12 +61,12 @@ def main():
             opt_result = _opt_result
             opt_hist = copy(_opt_hist)   
     n_iters = int(opt_result.nit)
+    opt_weights = list(opt_result.x)
     opt_loss = float(opt_result.fun)
     training_data = [
         opt_weights,
         opt_loss,
-        opt_hists,
-        fun_hists,
+        opt_hist,
         n_iters
         ]
     print("Final training Error: ", opt_result.fun)
@@ -207,6 +207,7 @@ def check_backpropagate(network, no_features, no_outputs, regularisation=0.0, no
 
 def train_network(network, nodes_per_layer, x_inputs, y_outputs, regularisation=0.0):
     x0 = flatten_weights(network)
+    x0 = x0.astype(np.float128)
     global opt_hist
     opt_hist = []
     def callback(xk):
@@ -222,7 +223,8 @@ def train_network(network, nodes_per_layer, x_inputs, y_outputs, regularisation=
     opt_result = minimize(
         fun=cost_fun, 
         x0=x0, 
-        jac=backprop_grad, 
+        jac=backprop_grad,
+        method='L-BFGS-B',
         args=(nodes_per_layer, x_inputs, y_outputs), 
         callback=callback
         )
