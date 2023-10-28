@@ -1,20 +1,21 @@
-# QAOANeural
-## My first attempt with neural networks via Numpy to predict QAOA quantum circuits.
-The goal of this codebase is to test how neural networks predict parameters for QAOA quantum circuits.  
+# QAOANeural  
+## A first attempt with neural networks via Numpy to predict QAOA quantum circuits.  
+Two main goals for this codebase:  
+1) Test how neural networks could predict parameters for QAOA quantum circuits.  
+2) To code a neural network from scratch to understand their workings better.  
   
-## Outline of steps taken:  
+By using Git repos, the hope is that the results are easily reproducible.  
+  
+## Outline of steps taken to produce results:  
 1. Generated numerous QAOA instances using the generate_ising.py functions with various parameters.  
-2. Optimise the QAOA parameters via traditional methods to generate known outputs for neural network.  
-3. The numpified inputs and outputs are saved under the folder 'datasets' in csv format.  
-4. Trained some simple neural networks on the datasets, saved in "trained_networks" folder.
-5. Analysed datasets as well as trained neural networks in Jupyter notebooks for visualisation.  
+2. Optimised QAOA parameters via traditional methods (scipy.optimize.minimize) to generate input-output pairs.  
+3. Trained neural network with simple architectures using the generated inputs and outputs, saved in "trained_networks" folder.  
+4. Visualized and analysed datasets, and analysed performance of trained networks.  
   
-### Other things to note: 
-- The Jupyter notebooks are used to mainly visualize the results. Most of the technical stuff are in the python scripts.  
-- I use HPC to complete independent batch jobs where possible, most notably in the training of the many network configurations in Step 4.  
-- This was done by calling `python train_neural_network.py $args` on sbatch scripts, where `$args` define the many different network configurations.
-- The batch results are recollected into one single Pickled file `trained_networks.pkl` to avoid the upload of too many files.
-- The loading of trained network data is shown explicitly in `NetworkPerformance.ipynb`.
-- Steps 1 and 2 was also run in batches on HPC for the samples in the training and validation datasets.
-- These are saved in raw values (unmodified) in `datasets_*_raw.json`, and in sorted values (normalised) in `.csv` format under datasets folder, along with their normalising values.
-- The loading and sorting of raw values are shown in `VisualizeRawDataset.ipynb`.
+### Other things to note:  
+- Jupyter notebooks are used for visualization (Step 4). Most of the technical stuff (neural network training, sorting datasets) are in python scripts.  
+- I use HPC to complete independent batch jobs where possible, most notably in the training of the many network configurations in Step 3.
+- This was done by calling `python train_neural_network.py $args` on bash/sbatch scripts, where `$args` define the many different network configurations.  
+- Steps 1 and 2 was also run in batches on HPC for the training and validation samples for quickly generating many inputs-output pairs.  
+- Results should still be reproducible without HPC, especially if training only a few, similarly small neural networks.
+- As a complete neural network beginner, I may or may not be using the technical terminology correctly nor consistently.  
