@@ -8,7 +8,7 @@ By using Git repos, the hope is that the results are easily reproducible.
   
 ## Outline of steps taken to produce results:  
 1. Generated numerous QAOA instances using the generate_ising.py functions with various parameters.  
-2. Optimised QAOA parameters via traditional methods (scipy.optimize.minimize) to generate input-output pairs.  
+2. Optimised QAOA parameters via traditional methods `scipy.optimize.minimize` to generate input-output pairs.  
 3. Trained neural network with simple architectures using the generated inputs and outputs, saved in "trained_networks" folder.  
 4. Visualized and analysed datasets, and analysed performance of trained networks.  
   
