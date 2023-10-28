@@ -12,5 +12,9 @@ The goal of this codebase is to test how neural networks predict parameters for 
 ### Other things to note: 
 - The Jupyter notebooks are used to mainly visualize the results. Most of the technical stuff are in the python scripts.  
 - I use HPC to complete independent batch jobs where possible, most notably in the training of the many network configurations in Step 4.  
-- This was done by calling `python train_neural_network.py $args` on bash/sbatch scripts, where `$args` define the many different network configurations.  
-- Steps 1 and 2 was also run in batches on HPC for the samples in the training and validation datasets. 
+- This was done by calling `python train_neural_network.py $args` on sbatch scripts, where `$args` define the many different network configurations.
+- The batch results are recollected into one single Pickled file `trained_networks.pkl` to avoid the upload of too many files.
+- The loading of trained network data is shown explicitly in `NetworkPerformance.ipynb`.
+- Steps 1 and 2 was also run in batches on HPC for the samples in the training and validation datasets.
+- These are saved in raw values (unmodified) in `datasets_*_raw.json`, and in sorted values (normalised) in `.csv` format under datasets folder, along with their normalising values.
+- The loading and sorting of raw values are shown in `VisualizeRawDataset.ipynb`.
