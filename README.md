@@ -4,7 +4,7 @@ Two main goals for this codebase:
 1) Test how neural networks could predict parameters for QAOA quantum circuits.  
 2) To code a neural network from scratch to understand their workings better.  
   
-By using Git repos, the hope is that the results are easily reproducible.  
+By using Git, the hope is that the results are easily reproducible.  
   
 ## Outline of steps taken to produce results:  
 1. Generated numerous QAOA instances using the generate_ising.py functions with various parameters.  
