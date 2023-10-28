@@ -16,6 +16,6 @@ By using Git repos, the hope is that the results are easily reproducible.
 - Jupyter notebooks are used for visualization (Step 4). Most of the technical stuff (neural network training, sorting datasets) are in python scripts.  
 - I use HPC to complete independent batch jobs where possible, most notably in the training of the many network configurations in Step 3.
 - This was done by calling `python train_neural_network.py $args` on bash/sbatch scripts, where `$args` define the many different network configurations.  
-- Steps 1 and 2 was also run in batches on HPC for the training and validation samples for quickly generating many inputs-output pairs.  
+- Steps 1 and 2 were also run in batches on HPC for the training and validation samples for quickly generating many inputs-output pairs.  
 - Results should still be reproducible without HPC, especially if training only a few, similarly small neural networks.
 - As a complete neural network beginner, I may or may not be using the technical terminology correctly nor consistently.  
