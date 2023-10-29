@@ -18,4 +18,6 @@ By using Git, the hope is that the results are easily reproducible.
 - This was done by calling `python train_neural_network.py $args` on bash/sbatch scripts, where `$args` define the many different network configurations.  
 - Steps 1 and 2 were also run in batches on HPC for the training and validation samples for quickly generating many input-output pairs.  
 - Results should still be reproducible without HPC, especially if training only a few, similarly small neural networks.
-- As a complete neural network beginner, I may or may not be using the technical terminology correctly nor consistently.  
+- As a complete neural network beginner, I may or may not be using the technical terminology correctly nor consistently.
+
+Building on this work, I implement more sophisticated strategies in [QAOANeuralTorch](https://github.com/jedwvv/QAOANeuralTorch) using PyTorch.
